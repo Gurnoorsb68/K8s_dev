@@ -43,8 +43,10 @@ VOLUME in POSTGRES : we need volume to store the data from the postgres database
 but in persistence volume, it is not tied to the pod, it is independed of the pod, so If pod get deleted , volume remains:
 
 what is PVC(Persistance volume claim):PVC is basically an advertisement saying this much volume is available, Staticall provisioned volume , is the voume which is already available ahead of time,Dynamically provisioned volume , which is created on request
--	So, basically PVC is attached to the config pod, then the kuberneties check weather it is statically provisioned volume or dynamic
- ![4](images/4.jpg)
+So, basically PVC is attached to the config pod, then the kuberneties check weather it is statically   provisioned volume or dynamic
+
+![4](images/4.jpg)
+
 ![5](images/5.jpg)
 
  
@@ -56,6 +58,7 @@ what is PVC(Persistance volume claim):PVC is basically an advertisement saying t
 -	INGRES SERVICE:---
 
 We will use ingress service to expose to the outworld instead of using NODEPORT, We wil create INGRESS CONFIG file and fed to kubectl, which will create inress controller, ingress controller will look into the ingressconfig and make the things happen.
+
 ![6](images/6.jpg)
  
 
@@ -65,6 +68,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 After having all the services and Deployment ready:
 As I have all the files in folder K8s, Run the command using kubectl cli:
+
 ![7](images/7.jpg)
 
  
