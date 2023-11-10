@@ -1,0 +1,33 @@
+apiVersion : apps/v1
+kind : Deployment
+metadata:
+  name : postgres-deployment
+spec:
+  replicas : 1
+  selector:
+    matchLabels:
+      component : postgres
+  template:
+    metadata:
+      labels:
+        component : postgres
+    spec:
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:     
+            claimName: database-persistent-volume-claim #ask the kuberneties to create the volume with this specifications
+      containers:
+        - name : postgres
+          image : postgres
+          ports:
+            - containerPort : 5432
+          volumeMounts:
+            - name: postgres-storage  #name of the volume that each containers inside the pod have access to
+              mountPath: /var/lib/postgressql/data #location where anything stored will be actually stored in our volume which we created above, so this is basically a reference to our volume : anything stoed at this location will be automatically stored in folder postgress in our pvc (hardisk), so when there is issue our data does not get lost
+              subPath: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword    # create a secret on your local to store this value 
+                  key: PGPASSWORD     
